@@ -88,5 +88,10 @@ namespace AzureCosmosDBToDo1
             return results;
         }
 
+        public static async Task<Document> CreateItemAsync(T item)
+        {
+            return await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), item);
+        }
+
     }
 }

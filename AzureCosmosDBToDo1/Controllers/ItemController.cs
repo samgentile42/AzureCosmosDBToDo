@@ -15,5 +15,26 @@ namespace AzureCosmosDBToDo1.Controllers
             var items = await DocumentDBRepository<Item>.GetItemsAsync(d => !d.Completed);
             return View(items);
         }
+
+        [ActionName("Create")]
+        public async Task<ActionResult> CreateAsync()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateAsync([Bind("Id,Name,Description,Completed")] Item item)
+
+        {
+            if (ModelState.IsValid)
+            {
+                await DocumentDBRepository<Item>.CreateItemAsync(item);
+                return RedirectToAction("Index");
+            }
+            return View(item);
+        }
+
     }
 }
