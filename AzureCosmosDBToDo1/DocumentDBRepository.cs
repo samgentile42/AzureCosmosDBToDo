@@ -98,7 +98,13 @@ namespace AzureCosmosDBToDo1
             return await client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id), item);
         }
 
-        public static async Task<T> GetItemAsync(string id)
+
+        public static async Task<Document> DeleteItemAsync(string id, string category)
+        {
+            return await client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id));
+        }
+
+        public static async Task<T> GetItemAsync(string id, string category)
         {
             try
             {

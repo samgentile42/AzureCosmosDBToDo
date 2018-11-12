@@ -51,15 +51,15 @@ namespace AzureCosmosDBToDo1.Controllers
         }
 
         [ActionName("Edit")]
-        public async Task<ActionResult> EditAsync(string id)
+        public async Task<ActionResult> EditAsync(string id, string category)
         {
             if (id == null)
             {
-                
+                // return new HttpStatusCodeResult
 
             }
 
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id);
+            Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
             if (item == null)
             {
                 // return HttpStatusCode.NotFound;
@@ -68,5 +68,35 @@ namespace AzureCosmosDBToDo1.Controllers
             return View(item);
         }
 
+        [ActionName("Delete")]
+        public async Task<ActionResult> DeleteAsync(string id, string category)
+        {
+            if (id == null)
+            {
+                // Nott in MVC Core
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
+            if (item == null)
+            {
+                // return HttpNotFound
+            }
+            return View(item);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmedAsync([Bind("Id, Category")] string id, string category)
+        {
+            await DocumentDBRepository<Item>.DeleteItemAsync(id, category);
+            return RedirectToAction("Index");
+        }
+
+        [ActionName("Details")]
+        public async Task<ActionResult> DetailsAsync(string id, string category)
+        {
+            Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
+        }
     }
 }

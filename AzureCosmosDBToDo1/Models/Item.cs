@@ -15,5 +15,8 @@ namespace AzureCosmosDBToDo1.Models
 
         [JsonProperty(PropertyName = "isComplete")]
         public bool Completed { get; set; }
+
+        [JsonProperty(PropertyName = "category")]
+        public string Category { get; set; }
     }
 }
