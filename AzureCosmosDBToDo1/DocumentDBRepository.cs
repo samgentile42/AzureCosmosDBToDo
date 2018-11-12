@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 //using Microsoft.IdentityModel.Protocols;
 
@@ -103,6 +104,8 @@ namespace AzureCosmosDBToDo1
         {
             return await client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id));
         }
+
+
 
         public static async Task<T> GetItemAsync(string id, string category)
         {

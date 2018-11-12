@@ -73,14 +73,15 @@ namespace AzureCosmosDBToDo1.Controllers
         {
             if (id == null)
             {
-                // Nott in MVC Core
                 // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
             if (item == null)
             {
-                // return HttpNotFound
+                // return HttpNotFound();
             }
+
             return View(item);
         }
 
@@ -97,6 +98,7 @@ namespace AzureCosmosDBToDo1.Controllers
         public async Task<ActionResult> DetailsAsync(string id, string category)
         {
             Item item = await DocumentDBRepository<Item>.GetItemAsync(id, category);
+            return View(item);
         }
     }
 }
